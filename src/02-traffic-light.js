@@ -1,4 +1,6 @@
 /**
+ * npm test -- 02-traffic
+ * 
  * 🚦 The Driving Simulator
  *
  * SafeDrive Driving School is building a simulator for new students.
@@ -23,4 +25,25 @@
  */
 export function getTrafficAction(color) {
   // Your code here
+  let result;
+
+  switch (color.toUpperCase()) {
+    case "GREEN":
+      result =  "GO";
+      break;
+    case "YELLOW":
+      result = "SLOW DOWN"
+      break;
+    case "RED":
+      result = "STOP"
+      break;
+    case "FLASHING RED":
+      result = "STOP AND PROCEED WITH CAUTION"
+      break;
+    default:
+      result = "INVALID SIGNAL"
+      break;
+  }
+
+  return result;
 }
