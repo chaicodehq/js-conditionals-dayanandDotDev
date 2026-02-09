@@ -1,4 +1,5 @@
-/**
+/** npm test -- 06-shipping-calculator
+ * 
  * 📦 ShopSwift Shipping Calculator
  *
  * ShopSwift is a growing online store. They've hired you to build their
@@ -30,4 +31,40 @@
  */
 export function calculateShipping(weight, country, orderTotal) {
   // Your code here
+  let invalidWeight = weight <= 0
+  let invalidOrderTotal = orderTotal <= 0
+
+  if (invalidWeight || invalidOrderTotal) {
+    return -1;
+  }
+  //
+  let isDomestic = country === "US"
+  let freeShippingForDomestic = orderTotal > 50
+  let freeShippingForInterNational = orderTotal > 100
+  
+  let tierOne = weight > 5
+  let tierTwo = weight > 1
+  let tierThree = weight <= 1
+  
+  if (isDomestic) {
+    if (freeShippingForDomestic) {
+      return 0;
+    } else if (tierOne) {
+      return 15
+    } else if (tierTwo) {
+      return 10
+    } else {
+      return 5
+    }
+  } else {
+    if (freeShippingForInterNational) {
+      return 0;
+    } else if (tierOne) {
+      return 40
+    } else if (tierTwo) {
+      return 25
+    } else {
+      return 15
+    }
+  }
 }
