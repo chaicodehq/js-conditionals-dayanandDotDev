@@ -1,4 +1,5 @@
-/**
+/** 
+ * ! npm test -- 08-tax-calculator
  * 💰 Sam's Tax Calculator
  *
  * Sam is a freelance graphic designer who dreads tax season every year.
@@ -27,4 +28,64 @@
  */
 export function calculateTax(income) {
   // Your code here
+  if (income <= 0 ) {return 0}
+
+  //
+  let incomeLeft = income
+  let tax = 0
+  const thresshold = {
+    bracketTwo: {amount: 10_000, rate: .1, sliceTax: 0},
+    bracketThree: {amount: 30_000, rate: .2, sliceTax: 2000},
+    bracketFour: {amount: 70_000, rate: .3, sliceTax: 10000},
+  }
+
+  if (incomeLeft > thresshold.bracketFour.amount) {
+    incomeLeft = income - thresshold.bracketFour.amount
+    tax = (incomeLeft * thresshold.bracketFour.rate) + thresshold.bracketFour.sliceTax
+  } else if (incomeLeft > thresshold.bracketThree.amount) {
+    incomeLeft = income - thresshold.bracketThree.amount
+    tax = (incomeLeft * thresshold.bracketThree.rate) + thresshold.bracketThree.sliceTax
+  } else if (incomeLeft > thresshold.bracketTwo.amount) {
+    incomeLeft = income - thresshold.bracketTwo.amount
+    tax = (incomeLeft * thresshold.bracketTwo.rate) + thresshold.bracketTwo.sliceTax
+  }
+
+  return tax;
 }
+
+/* One Way
+
+  if (income <= 0) {return 0}
+
+  let totalTaxOwed = 0.0
+
+  let taxBracket = {
+    one: {isAllowed: income <= 10_000, minRange: 0, maxRange: 10_000, tax: 0},
+    two: {isAllowed: income > 10_000, minRange: 10_000, maxRange: 30_000, tax: 10/100},
+    three: {
+      isAllowed: income > 30_000 && income <= 70_000,
+      minRange: 30_000, maxRange: 70_000, tax: 20/100
+    },
+    four: {isAllowed: income > 70_000, minRange: 70_000, maxRange: 0, tax: 30/100},
+    sliceTax : {
+      forTwo: 0,
+      forThree: 2_000,
+      forFour: 10_000
+    }
+  }
+
+  if (taxBracket.four.isAllowed) {
+    //
+    totalTaxOwed = ((income - taxBracket.four.minRange) * taxBracket.four.tax) + taxBracket.sliceTax.forFour
+  } else if (taxBracket.three.isAllowed) {
+    //
+    totalTaxOwed = ((income - taxBracket.three.minRange) * taxBracket.three.tax) + taxBracket.sliceTax.forThree
+  } else if (taxBracket.two.isAllowed) {
+    //
+    totalTaxOwed = ((income - taxBracket.two.minRange) * taxBracket.two.tax) + taxBracket.sliceTax.forTwo
+  }
+
+  //
+  return totalTaxOwed
+
+*/
