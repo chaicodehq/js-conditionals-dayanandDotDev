@@ -1,4 +1,6 @@
 /**
+ * ! npm test -- 10-tip-calculator
+ * 
  * 🍽️ TipEasy - Restaurant Tip Calculator
  *
  * You're building TipEasy, an app that helps diners calculate the right
@@ -31,4 +33,20 @@
  */
 export function calculateTip(billAmount, serviceRating) {
   // Your code here
+  if (billAmount <= 0) return null;
+  
+  switch (serviceRating) {
+    case 1:
+      return {tipPercentage: 5, tipAmount: billAmount * (5/100), totalAmount: billAmount + ( billAmount * 5/100 )};
+    case 2:
+      return {tipPercentage: 10, tipAmount: billAmount * (10/100), totalAmount: billAmount + ( billAmount * 10/100 )};
+    case 3:
+      return {tipPercentage: 15, tipAmount: billAmount * (15/100), totalAmount: billAmount + ( billAmount * 15/100 )};
+    case 4:
+      return {tipPercentage: 20, tipAmount: billAmount * (20/100), totalAmount: billAmount + ( billAmount * 20/100 )};
+    case 5:
+      return {tipPercentage: 25, tipAmount: billAmount * (25/100), totalAmount: billAmount + ( billAmount * 25/100 )};
+    default:
+      return null;
+  }
 }

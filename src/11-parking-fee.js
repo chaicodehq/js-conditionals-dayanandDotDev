@@ -1,4 +1,6 @@
 /**
+ * ! npm test -- 11-parking-fee
+ * 
  * 🅿️ City Central Parking
  *
  * City Central Parking garage is the busiest in downtown. They need an
@@ -34,4 +36,38 @@
  */
 export function calculateParkingFee(hours, vehicleType) {
   // Your code here
+  //! - If hours is 0 or negative, return -1
+  if (hours <= 0) return -1
+  //! - Partial hours are rounded UP (e.g., 1.5 hours → 2 hours)
+  hours = Math.ceil(hours) - 1
+
+  const rates = {
+    "car": { name: "car", firstHour: 5, thenPerHour: 3, maxFee: 30 },
+    "motorcycle": { name: "motorcycle", firstHour: 3, thenPerHour: 2, maxFee: 18 },
+    "bus": { name: "bus", firstHour: 10, thenPerHour: 7, maxFee: 60 },
+  }
+
+  let parkingFee = 0
+  
+  switch (vehicleType) {
+    case rates["car"].name:
+      parkingFee = rates[vehicleType].firstHour + (rates[vehicleType].thenPerHour * (hours))
+      break;
+    case rates["motorcycle"].name:
+      parkingFee = rates[vehicleType].firstHour + (rates[vehicleType].thenPerHour * (hours))
+      break;
+    case rates["bus"].name:
+      parkingFee = rates[vehicleType].firstHour + (rates[vehicleType].thenPerHour * (hours))
+      break;
+    default:
+      //! If vehicleType is not "car", "motorcycle", or "bus", return -1
+      return -1;
+  }
+
+  // ! - The fee should never exceed the daily maximum
+  if (parkingFee >= rates[vehicleType].maxFee) {
+    return rates[vehicleType].maxFee;
+  } else {
+    return parkingFee;
+  }
 }
